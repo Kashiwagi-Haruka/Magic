@@ -5,6 +5,7 @@ Result::Result() {
 	BGPos = { {0,0},{1280,0},{0,720},{1280,720} };
 	handle[0] = GetHandle(kTitle);
 	handle[1] = GetHandle(kResultNo);
+	handle[2] = GetHandle(kStringetc);
 	FirstNo = 0;
 	SecondNo = 0;
 	ThirdNo = 0;
@@ -38,6 +39,9 @@ void Result::ResultNoDraw(int No,Vector2 pos) {
 void Result::ResultDraw() {
 
 	LRTBdrawQuad(BGPos, { {0,0},{},{},{1280,720} }, handle[0], 0xffffffff);
+
+	LRTBdrawQuad({ {440,75}, {840,75},{440,175},{840,175} }, { {500,0},{},{},{400,100} }, handle[2], 0xffffffff);
+	LRTBdrawQuad({ {190,500}, {1090,500},{190,600},{1090,600} }, { {0,100},{},{},{900,100} }, handle[2], 0xffffffdd);
 
 	ResultNoDraw(FirstNo,{540,200});
 	ResultNoDraw(SecondNo, { 590,200 });

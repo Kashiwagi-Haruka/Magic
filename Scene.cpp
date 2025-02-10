@@ -22,7 +22,8 @@ Scene::Scene() {
 
 	currentTime = int(time(nullptr));
 	
-	handls = Handle::GetHandle(kKeys);
+	handls[0] = Handle::GetHandle(kKeys);
+	handls[1] = Handle::GetHandle(kStringetc);
 
 	srand(currentTime);
 
@@ -39,7 +40,7 @@ void Scene::UPDATE(char* keys, char* preKeys) {
 	case ktitle:
 		Timer = 0;
 		TitleDraw();
-
+		LRTBdrawQuad({ {190,500}, {1090,500},{190,600},{1090,600} }, { {0,100},{},{},{900,100} }, handls[1], 0xffffffdd);
 		if (!preKeys[DIK_SPACE] && keys[DIK_SPACE]) {
 			RESET();
 			sceneNo = kstage1;
@@ -68,7 +69,7 @@ void Scene::UPDATE(char* keys, char* preKeys) {
 		Player::PlDraw();
 		EnemyDraw();
 
-		if (Timer >= 10/*s*/ * 60/*flame*/) {
+		if (Timer >= 30/*s*/ * 60/*flame*/) {
 			sceneNo = kresult;
 		}
 		if (GetIsDead()) {
@@ -117,11 +118,15 @@ void Scene::UPDATE(char* keys, char* preKeys) {
 	} else {
 		drawPos[4].y = 400;
 	}
-	LRTBdrawQuad({ { 120.0f,580 },{ 180.0f,580 } ,{ 120.0f,640 } ,{ 180.0f,640 } }, { { drawPos[0] },{},{} ,{drawsize[0]} }, handls, 0xffffffff);
+	LRTBdrawQuad({ { 120.0f,580 },{ 180.0f,580 } ,{ 120.0f,640 } ,{ 180.0f,640 } }, { { drawPos[0] },{},{} ,{drawsize[0]} }, handls[0], 0xffffffff);
 	for (int i = 1; i < 4; i++) {
-		LRTBdrawQuad({ { 0.0f + i * 60,640 },{ 60.0f+i*60,640 } ,{ 0.0f + i * 60,700 } ,{ 60.0f + i * 60,700 } }, { { drawPos[i] },{},{} ,{drawsize[i]} }, handls, 0xffffffff);
+		LRTBdrawQuad({ { 0.0f + i * 60,640 },{ 60.0f+i*60,640 } ,{ 0.0f + i * 60,700 } ,{ 60.0f + i * 60,700 } }, { { drawPos[i] },{},{} ,{drawsize[i]} }, handls[0], 0xffffffff);
 	}
-	LRTBdrawQuad({ {250,640},{450,640},{250,700},{450,700} }, { drawPos[4],{} ,{},{drawsize[4]} }, handls, 0xffffffff);
+	LRTBdrawQuad({ {250,640},{450,640},{250,700},{450,700} }, { drawPos[4],{} ,{},{drawsize[4]} }, handls[0], 0xffffffff);
+
+
+	LRTBdrawQuad({ {60,480},{240,480},{60,580},{240,580} }, { {0,0},{} ,{},{200,100} }, handls[1], 0xffffffff);
+	LRTBdrawQuad({ {250,480},{450,480},{250,580},{450,580} }, { {200,0},{} ,{},{300,100} }, handls[1], 0xffffffff);
 }
 
 void Scene::PEHit() {

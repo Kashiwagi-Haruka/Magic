@@ -5,10 +5,12 @@ void Bullet::Init() {
 	handle = GetHandle(kBullet);
 	for (int s = Suit::SPADE; s <= Suit::CLUB; s++) {
 		for (int i = 0; i < 15; i++) {
+			
 			pos[s][i] = {};
 			isAlive[s][i] = false;
 		}
 	}
+	drawPos[Suit::SPADE] = { {0,0},{},{},{1280,1280} };
 	speed = 8.0f;
 	size = { 20.0f,20.0f };
 	shotCoolTime = 0;
@@ -19,7 +21,7 @@ void Bullet::Init() {
 			HitEffectT[s] = 0.0f;
 		}
 	}
-	
+	color = 0xffffffff;
 }
 void Bullet::Move(char* keys,char* preKeys) {
 
@@ -76,13 +78,32 @@ void Bullet::Move(char* keys,char* preKeys) {
 		
 			if (isAlive[s][i]) {
 				pos[s][i].LeftTop.x += speed;
+				pos[s][i].RightTop.x += speed;
+				pos[s][i].LeftButtom.x += speed;
+				pos[s][i].RightButtom.x += speed;
 				if (ScreenPos[s][i].LeftTop.x >= 1280.0f) {
 
 					isAlive[s][i] = false;
-					pos[s][i].LeftTop = playerPos;
+					pos[s][i].LeftTop.x = playerPos.x - size.x;
+					pos[s][i].LeftButtom.x = playerPos.x - size.x;
+					pos[s][i].RightTop.x = playerPos.x + size.x;
+					pos[s][i].RightButtom.x = playerPos.x + size.x;
+
+					pos[s][i].LeftTop.y = playerPos.y + size.y;
+					pos[s][i].LeftButtom.y = playerPos.y - size.y;
+					pos[s][i].RightTop.y = playerPos.y + size.y;
+					pos[s][i].RightButtom.y = playerPos.y - size.y;
 				}
 			} else {
-				pos[s][i].LeftTop = playerPos;
+				pos[s][i].LeftTop.x = playerPos.x - size.x;
+				pos[s][i].LeftButtom.x = playerPos.x - size.x;
+				pos[s][i].RightTop.x = playerPos.x + size.x;
+				pos[s][i].RightButtom.x = playerPos.x + size.x;
+
+				pos[s][i].LeftTop.y = playerPos.y + size.y;
+				pos[s][i].LeftButtom.y = playerPos.y - size.y;
+				pos[s][i].RightTop.y = playerPos.y + size.y;
+				pos[s][i].RightButtom.y = playerPos.y - size.y;
 			}
 
 		}
@@ -123,11 +144,11 @@ void Bullet::Draw() {
 	
 		for (int i = 0; i < 15; i++) {
 			if (isAlive[Suit::SPADE][i]) {
-				/*LRTBdrawQuad(ScreenPos[s][i], drawPos[s], handle, color);*/
-				Novice::DrawEllipse(int(ScreenPos[Suit::SPADE][i].LeftTop.x), int(ScreenPos[Suit::SPADE][i].LeftTop.y), 20, 20, 0.0f, 0x3333ffff, kFillModeSolid);
+				LRTBdrawQuad(ScreenPos[Suit::SPADE][i], drawPos[Suit::SPADE], handle, color);
+				/*Novice::DrawEllipse(int(ScreenPos[Suit::SPADE][i].LeftTop.x), int(ScreenPos[Suit::SPADE][i].LeftTop.y), 20, 20, 0.0f, 0x3333ffff, kFillModeSolid);
 				Novice::DrawEllipse(int(ScreenPos[Suit::HEART ][i].LeftTop.x), int(ScreenPos[Suit::HEART][i].LeftTop.y), 20, 20, 0.0f, 0xff3333ff, kFillModeSolid);
 				Novice::DrawEllipse(int(ScreenPos[Suit::DIAMOND][i].LeftTop.x), int(ScreenPos[Suit::DIAMOND][i].LeftTop.y), 20, 20, 0.0f, 0xffff33ff, kFillModeSolid);
-				Novice::DrawEllipse(int(ScreenPos[Suit::CLUB][i].LeftTop.x), int(ScreenPos[Suit::CLUB][i].LeftTop.y), 20, 20, 0.0f, 0x33ff33ff, kFillModeSolid);
+				Novice::DrawEllipse(int(ScreenPos[Suit::CLUB][i].LeftTop.x), int(ScreenPos[Suit::CLUB][i].LeftTop.y), 20, 20, 0.0f, 0x33ff33ff, kFillModeSolid);*/
 
 				
 

@@ -8,6 +8,7 @@ Player::Player() {
 	animation = Player::Enum::kWait;
 	MiddlePos = {};
 	handle[0] = GetHandle(kPlayer);
+	handle[1] = GetHandle(kHP);
 	t = 0;
 	color = 0xffffffff;
 
@@ -29,7 +30,7 @@ Player::Player() {
 
 	for (int i = 0; i < 5; i++) {
 		HPpos[i] = { {0.0f + i * 105,0},{100.0f + i * 105,0},{0.0f + i * 105,100},{100.0f + i * 105,100} };
-		/*HPdrawPos={{0,0},{},{},{}}*/
+		HPdrawPos = { {0,0},{},{},{1280,1280} };
 	}
 }
 
@@ -140,11 +141,13 @@ void Player::PlMove(char* keys, char* preKeys) {
 		color = 0xff0000ff;
 		damageTime++;
 	} else {
+		damageTime = 0;
 		color = 0xffffffff;
 	}
 	if (damageTime >= 60) {
 		isDamage = false;
 	}
+	
 	
 	if (HP <= 0) {
 		isDead = true;
@@ -171,9 +174,9 @@ void Player::PlDraw() {
 	
 
 	LRTBdrawQuad(ScreenPos, drawPos, handle[0], color);
-	/*for (int i = 0; i < HP; i++) {
+	for (int i = 0; i < HP; i++) {
 		LRTBdrawQuad(HPpos[i], HPdrawPos, handle[1], 0xffffffff);
-	}*/
+	}
 
 }
 
@@ -215,7 +218,7 @@ void Player::SetIsDamage(bool isdamage) {
 }
 void Player::SetHP(int hp) {
 
-	HP -= hp;
+	HP += hp;
 
 }
 

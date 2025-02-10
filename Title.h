@@ -3,9 +3,11 @@
 #include "Handle.h"
 class Title: private Handle,Camera
 {
+private:
+
 	Vector2 pos;
 
-	int Handle_;
+	int Handle_[2];
 	int color;
 
 

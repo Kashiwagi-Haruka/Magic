@@ -29,7 +29,7 @@ private:
 	int score;
 	int Timer;
 
-	int handls;
+	int handls[2];
 
 	Vector2 drawPos[5];
 	Vector2 drawsize[5];

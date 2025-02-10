@@ -18,8 +18,10 @@ public:
 		kTitle,
 		kBackground,
 		kResultNo,
-		kResultBG,
+		ktitlestr,
 		kKeys,
+		kStringetc,
+		kHP,
 	};
 	
 
@@ -29,7 +31,7 @@ public:
 
 private:
 	
-	int Handle_[8];
+	int Handle_[10];
 	
 
 };

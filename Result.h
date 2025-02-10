@@ -17,7 +17,7 @@ private:
 
 	LRTB BGPos;
 
-	int handle[2];
+	int handle[3];
 
 public:
 
