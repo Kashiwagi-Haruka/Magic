@@ -92,7 +92,9 @@ Matrix3x3 MakeTranslateMatrix(Vector2 translate) {
 }
 
 Vector2 Transform(Vector2 vector, Matrix3x3 matrix) {
+
 	Vector2 result{};
+
 	result.x = vector.x * matrix.m[0][0] + vector.y * matrix.m[1][0] + 1.0f * matrix.m[2][0];
 	result.y = vector.x * matrix.m[0][1] + vector.y * matrix.m[1][1] + 1.0f * matrix.m[2][1];
 
@@ -101,7 +103,7 @@ Vector2 Transform(Vector2 vector, Matrix3x3 matrix) {
 
 	float w = vector.x * matrix.m[0][2] + vector.y * matrix.m[1][2] + 1.0f * matrix.m[2][2];
 	assert(w != 0.0f);
-
+	w;
 
 	return result;
 
